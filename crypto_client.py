@@ -1,34 +1,32 @@
 import os
-from PySide2.QtUiTools import QUiLoader
-from PySide2.QtCore import QFile, Qt
+
+from PySide2.QtCore import Qt
 from PySide2.QtWidgets import (
     QApplication,
     QFileDialog,
     QMessageBox,
     QTableWidgetItem,
-    QComboBox
+    QMainWindow
 )
+
 from account_action import AccountAction
+from versatile import fill_space
+from ui import ui_window
 import basedata
 
 
-def read_ui_file(uipath):
-    qfile = QFile(uipath)
-    qfile.open(QFile.ReadOnly)
-    qfile.close()
-    return qfile
+class CryptoClient(QMainWindow):
+    """账户加密客户端工具;"""
 
-
-class CryptoClient(object):
-    """ 账户加密客户端工具;"""
-
-    def __init__(self, uipath: str):
+    def __init__(self):
         """ UI界面使用Designer构建;
         UI界面中具体Widgets组件对象名称参考 widgets.md
-
-        :param uipath: ui文件路径
         """
-        self.ui = QUiLoader().load(read_ui_file(uipath))
+        super().__init__()
+        self.ui = ui_window.MainWindow()
+        self.ui.setupUi(self)
+
+        self.sub_window = DisplayWindow()
         self.initialization()
         self._crypto_value = {}
         self.public_keystore = None
@@ -42,10 +40,6 @@ class CryptoClient(object):
         self._init_table_widget()
         self._init_check_box()
 
-    def show(self):
-        """展示UI界面"""
-        self.ui.show()
-
     def _init_push_button(self):
         """初始化 PushButton控件"""
         self.ui.cryptoTabBrowseButton.clicked.connect(
@@ -57,14 +51,19 @@ class CryptoClient(object):
         self.ui.cryptoTabClearRow.clicked.connect(
             self._table_widget_clear_rows)
         self.ui.cryptoTabEncryptButton.clicked.connect(
-            self._submit_crypto)
+            self._submit_crypto_button)
         self.ui.modifyTabClearNewValue.clicked.connect(
             self.ui.modifyTabNewValue.clear)
         self.ui.modifyTabSubmitButton.clicked.connect(
             self._submit_modify_button)
         self.ui.modifyTabQueryAccounts.clicked.connect(
-            self.display_account_number
-        )
+            self.display_account_number)
+        self.ui.queryTabSubmitQuery.clicked.connect(
+            self._submit_query_button)
+        self.ui.removeTabShowAccounts.clicked.connect(
+            self.display_account_number)
+        self.ui.removeTabSubmitButton.clicked.connect(
+            self._submit_remove_button)
 
     def _init_table_widget(self):
         """初始化; TableWidget控件"""
@@ -73,25 +72,84 @@ class CryptoClient(object):
 
     def _init_line_text(self):
         """初始化 LineText控件"""
+        self.ui.cryptoTabFileEdit.setEnabled(False)
+        if os.path.isfile(basedata.CACHE_PATH):
+            with open(basedata.CACHE_PATH, "r", encoding="utf-8") as fileIO:
+                self.ui.cryptoTabFileEdit.setText(fileIO.read())
+        self.ui.cryptoTabFileEdit.textChanged.connect(
+            self._leave_memory)
 
     def _init_radio_button(self):
         """初始化 RadioButton控件"""
 
     def _init_combo_box(self):
         """初始化 ComboBox控件"""
-        # self.ui.modifyTabTypeComboBox.currentIndexChanged.connect()
+        self.ui.queryTabQueryType.currentIndexChanged.connect(
+            self._query_type_changed)
 
     def _init_check_box(self):
         """初始化 CheckBox控件"""
         self.ui.modifyTabConfirmProtocol.stateChanged.connect(
             self._modify_tab_change_submit_state)
+        self.ui.removeTabConfirmProtocol.stateChanged.connect(
+            self._remove_tab_change_submit_state)
+
+    def _leave_memory(self):
+        """当重新选择公钥路径时会将新路径保存到缓存文件中"""
+        filepath = self.ui.cryptoTabFileEdit.text()
+        with open(basedata.CACHE_PATH, "w", encoding="utf-8") as fileIO:
+            fileIO.write(filepath)
+
+    def _submit_remove_button(self):
+        """removeTab; 删除账户"""
+        account_no = self.ui.removeTabTargetAccount.text()
+        action = AccountAction(self.public_keystore)
+        if not account_no or account_no not in action.query_account_number_all():
+            return QMessageBox.warning(self, "提示", "未正确输入账户或账户不在历史记录中!")
+        choice = QMessageBox.question(self, "提示", "确定要删除该账户吗?")
+        if choice == QMessageBox.No:
+            return None
+        action.remove_account(account_no)
+        self.ui.removeTabTargetAccount.clear()
+        QMessageBox.information(self, "提示", "账户删除成功!")
+
+    def _submit_crypto_button(self):
+        """cryptoTab;提交加密"""
+        self.public_keystore = self.ui.cryptoTabFileEdit.text()
+        if not os.path.exists(self.public_keystore):
+            return QMessageBox.warning(
+                self, "警告", "您还未选择公钥文件,或选择的文件无效!")
+        all_content = self._get_table_widget_content()
+        self._table_widget_clear_rows()
+        if not all_content:
+            return QMessageBox.warning(self, "警告", "请先输入账户信息!")
+        action = AccountAction(self.public_keystore)
+        action.expand_account(all_content)
+        QMessageBox.about(self, "提示", "加密完成!")
+
+    def _submit_query_button(self):
+        """queryTab; 点击查询账户按钮后展示过滤后的结果"""
+        query_range = self.ui.queryRangeButtonGroup.checkedButton().text()
+        match_mode = self.ui.matchModeButtonGroup.checkedButton().text()
+        query_key = self.ui.queryTabQueryType.currentText()
+        value = self.ui.queryTabMatchValue.text()
+        action = AccountAction(self.public_keystore)
+        accounts = action.condition_query(query_range, query_key, match_mode, value)
+        result = []
+        title = ['银行名称', '银行账户', '账户名称']
+        title_line = "".join(fill_space(key, 50) for key in title)
+        result.append(f"{title_line}\n\n")
+        for account in accounts:
+            filled = [fill_space(account[key], 50) for key in title]
+            result.append(f"{''.join(filled)}\n")
+        self.ui.queryTabShowResult.setPlainText(''.join(result))
 
     def _submit_modify_button(self):
         """modifyTab; 提交修改Button"""
         self.public_keystore = self.ui.cryptoTabFileEdit.text()
         if not os.path.exists(self.public_keystore):
             return QMessageBox.warning(
-                self.ui, "警告", "您还未选择公钥文件,或选择的文件无效!")
+                self, "警告", "您还未选择公钥文件,或选择的文件无效!")
         modify_type = self.ui.modifyTabTypeComboBox.currentText()
         account_no = self.ui.modifyTabTargetAccount.text()
         new_value = self.ui.modifyTabNewValue.text()
@@ -100,21 +158,26 @@ class CryptoClient(object):
         action = AccountAction(self.public_keystore)
         if not action.verification_account(account_no, login_password, key_password):
             return QMessageBox.warning(
-                self.ui, "警告", "当前输入的账户或密码无效,请检查!")
+                self, "警告", "当前输入的账户或密码无效,请检查!")
         action.modify_account(account_no, modify_type, new_value)
         self.ui.modifyTabNewValue.clear()
         self.ui.modifyTabLoginPassword.clear()
         self.ui.modifyTabUKeyPassword.clear()
         QMessageBox.about(
-            self.ui, "提示", "修改成功!")
+            self, "提示", "修改成功!")
+
+    def _query_type_changed(self):
+        if self.ui.queryTabQueryType.currentText() == "全部":
+            return self.ui.queryTabMatchValue.setEnabled(False)
+        self.ui.queryTabMatchValue.setEnabled(True)
 
     def display_account_number(self):
         """在小窗口中展示当前JSON文件中所有的账号"""
         action = AccountAction(self.public_keystore)
         accounts_no = action.query_account_number_all()
-        sub_window.set_window_title("银行账户")
-        sub_window.set_content("\n".join(accounts_no))
-        sub_window.show()
+        self.sub_window.setWindowTitle("银行账户")
+        self.sub_window.set_content("\n".join(accounts_no))
+        self.sub_window.show()
 
     def _modify_tab_change_submit_state(self):
         if self.ui.modifyTabConfirmProtocol.isChecked():
@@ -122,9 +185,15 @@ class CryptoClient(object):
         else:
             self.ui.modifyTabSubmitButton.setEnabled(False)
 
+    def _remove_tab_change_submit_state(self):
+        if self.ui.removeTabConfirmProtocol.isChecked():
+            self.ui.removeTabSubmitButton.setEnabled(True)
+        else:
+            self.ui.removeTabSubmitButton.setEnabled(False)
+
     def _select_public_key_file(self):
         """选择公钥文件"""
-        filepath, _ = QFileDialog.getOpenFileName(self.ui, "选择公钥文件", basedata.DEFAULT_DIR)
+        filepath, _ = QFileDialog.getOpenFileName(self, "选择公钥文件", basedata.DEFAULT_DIR)
         if not os.path.exists(filepath):
             return None
         self.ui.cryptoTabFileEdit.setText(filepath)
@@ -189,50 +258,25 @@ class CryptoClient(object):
                 total.append(current_dict)
         return total
 
-    def _submit_crypto(self):
-        """cryptoTab;提交加密"""
-        self.public_keystore = self.ui.cryptoTabFileEdit.text()
-        if not os.path.exists(self.public_keystore):
-            return QMessageBox.warning(
-                self.ui, "警告", "您还未选择公钥文件,或选择的文件无效!")
-        all_content = self._get_table_widget_content()
-        self._table_widget_clear_rows()
-        if not all_content:
-            return QMessageBox.warning(self.ui, "警告", "请先输入账户信息!")
-        action = AccountAction(self.public_keystore)
-        action.expand_account(all_content)
-        QMessageBox.about(self.ui, "提示", "加密完成!")
 
+class DisplayWindow(QMainWindow):
+    """用于展示文本内容的子窗口"""
 
-class DisplayWindow(object):
-    """用于展示文本内容的小窗口"""
-
-    def __init__(self, uipath=None):
-        path = uipath or "ui/display_information.ui"
-        qfile = read_ui_file(path)
-        self.window = QUiLoader().load(qfile)
+    def __init__(self):
+        super().__init__()
+        self.ui = ui_window.SubWindow()
+        self.ui.setupUi(self)
         self.initialization()
 
     def initialization(self):
-        self.window.returnButton.clicked.connect(
-            self.window.close)
-
-    def show(self):
-        self.window.show()
-
-    def close(self):
-        self.window.close()
+        self.ui.returnButton.clicked.connect(self.close)
 
     def set_content(self, text):
-        self.window.contentBrowser.setPlainText(text)
-
-    def set_window_title(self, title):
-        self.window.setWindowTitle(title)
+        self.ui.contentBrowser.setPlainText(text)
 
 
 if __name__ == '__main__':
     app = QApplication()
-    client = CryptoClient("ui/account_crypto.ui")
-    sub_window = DisplayWindow("ui/display_information.ui")
+    client = CryptoClient()
     client.show()
     app.exec_()
