@@ -1,4 +1,5 @@
 from subprocess import Popen, PIPE
+
 from basedata import (
     ENCRYPT_PATH,
     DECRYPT_PATH,
@@ -23,5 +24,14 @@ def decryption(ciphertext: str, keystore_path: str):
     return plaintext.decode('utf-8')
 
 
-if __name__ == '__main__':
-    pass
+def fill_space(text, length=0):
+    """在文本的右侧填充空格;
+    在UI界面中,ASCII码占2个空格, 中文占4个空格,
+    """
+    cn_len = sum(True for t in text if '\u4e00' <= t <= '\u9fff')
+    ascii_len = sum(True for t in text if t.isascii())
+    reduce = (cn_len * 4) + (ascii_len * 2)
+    real_length = length - reduce
+    if real_length < 0:
+        return text
+    return "{}{}".format(text, " " * real_length)
