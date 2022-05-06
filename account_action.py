@@ -1,6 +1,7 @@
 from typing import Union, List, Dict
 import os
 import json
+
 import versatile
 import basedata
 
@@ -24,7 +25,11 @@ class AccountAction(object):
         self.update_account(accounts)
 
     def modify_account(self, account_no: str, modify_key: str, value: str):
-        """修改账户信息"""
+        """ 修改账户信息
+        :param modify_key: 要修改的key -> ["登录密码", "U盾密码", "客户号", "操作员号"]
+        :param account_no: 账号
+        :param value: 新值
+        """
         accounts = self.query_account_all()
         for account in accounts:
             if account["银行账户"] != account_no:
@@ -48,6 +53,29 @@ class AccountAction(object):
         """返回JSON文件中所有的账号"""
         accounts = self.query_account_all()
         return [account["银行账户"] for account in accounts]
+
+    def condition_query(self, query_range, query_key, match_mode, match_value):
+        """ 按照指定条件查询账户
+        :param query_range: 查询范围 -> ["查询单个", "查询全部"]
+        :param query_key: 查询的key -> ["银行名称", "银行账户", "账户名称", "全部"]
+        :param match_mode: 匹配模式 -> ["模糊匹配", "完整匹配"]
+        :param match_value: 匹配目标的值
+        :return: List[Dict]
+        """
+        accounts = self.query_account_all()
+        if query_key == "全部":
+            return accounts
+        filter_ = list()
+        for account in accounts:
+            if match_mode == "模糊匹配":
+                if match_value in account[query_key]:
+                    filter_.append(account)
+            elif match_mode == "完整匹配":
+                if match_value == account[query_key]:
+                    filter_.append(account)
+        if query_range == "查询单个" and filter_:
+            return [filter_[0]]
+        return filter_
 
     def update_account(self, accounts: List[Dict]):
         """对传入的账户进行加密后更新到JSON文件中; 当确认存在JSON文件时使用此方法"""
@@ -108,9 +136,3 @@ class AccountAction(object):
                 if account["银行账户"] == number:
                     accounts.remove(account)
         return accounts
-
-
-if __name__ == '__main__':
-    action = AccountAction(basedata.PUBLIC_KEYSTORE)
-    res = action.query_account_all()
-    print(res)
