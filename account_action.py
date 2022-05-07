@@ -10,12 +10,12 @@ class AccountAction(object):
     """对存储账户信息的JSON文件进行封装一些通用方法;
     使用JSON文件用作存储账户信息的数据库"""
 
-    def __init__(self, public_keystore, jsonpath: Union[str, None] = None):
+    def __init__(self, private_keystore, jsonpath: Union[str, None] = None):
         """ 初始化需要操作的文件路径,需要从参数中传入;
-        :param public_keystore: 存储公钥的keystore文件路径
+        :param private_keystore: 存储私钥的keystore文件路径
         :param jsonpath: 存储账户信息的JSON文件路径
         """
-        self.public_keystore = public_keystore
+        self.private_keystore = private_keystore
         self.jsonpath = jsonpath or basedata.JSON_SAVE_PATH
 
     def expand_account(self, accounts: List[Dict]):
@@ -35,7 +35,7 @@ class AccountAction(object):
             if account["银行账户"] != account_no:
                 continue
             if modify_key in ["登录密码", "U盾密码"]:
-                value = versatile.encryption(value, self.public_keystore)
+                value = versatile.encryption(value, self.private_keystore)
             account[modify_key] = value
             break
         with open(self.jsonpath, "w", encoding="utf-8") as fileIO:
@@ -109,8 +109,8 @@ class AccountAction(object):
         for account in accounts:
             if account["银行账户"] != account_no:
                 continue
-            login_ciphertext = versatile.encryption(login_pwd, self.public_keystore)
-            key_ciphertext = versatile.encryption(key_pwd, self.public_keystore)
+            login_ciphertext = versatile.encryption(login_pwd, self.private_keystore)
+            key_ciphertext = versatile.encryption(key_pwd, self.private_keystore)
             return all((login_ciphertext == account["登录密码"],
                         key_ciphertext == account["U盾密码"]))
         return False
@@ -125,7 +125,7 @@ class AccountAction(object):
         for account in accounts:
             for key in ["登录密码", "U盾密码"]:
                 account[key] = versatile.encryption(
-                    account[key], self.public_keystore
+                    account[key], self.private_keystore
                 )
         return accounts
 
