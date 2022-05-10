@@ -1,5 +1,7 @@
 ## Widgets Description
 
+### MainWindow:
+
 >cryptoTabFileEdit		:-> 	账户加密页面;文件路径Edit
 
 >cryptoTabBrowseButton	:-> 	账户加密页面;浏览文件Button
@@ -48,7 +50,8 @@
 
 >queryTabVagueMatch		:->		查询账户页面;模糊匹配RadioButton
 
->queryTabShowResult		:->		查询账户页面;内容展示TextBrowser
+[//]: # (>queryTabShowResult		:->		查询账户页面;内容展示TextBrowser)
+>queryTabTableWidget		:->		查询账户页面;内容展示TableWidget
 
 >queryTabSubmitQuery		:->		查询账户页面;提交查询Button
 ---
@@ -59,3 +62,12 @@
 >removeTabConfirmProtocol:->		删除账户页面;同意协议ComboBox
 
 >removeTabSubmitButton	:->		删除账户页面;提交删除Button
+
+###ProtocolWindow: 
+>ReadingArea    :->     阅读协议窗口;协议阅读区TextBrowser
+
+>ConfirmProtocolCheckBox    :->     阅读协议窗口;同意协议CheckBox
+
+>ConfirmProtocolButton      :->     阅读协议窗口;确认协议Button
+
+>CancelProtocolButton      :->     阅读协议窗口;取消协议Button
