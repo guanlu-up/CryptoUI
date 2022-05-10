@@ -26,10 +26,10 @@ def decryption(ciphertext: str, keystore_path: str):
 
 def fill_space(text, length=0):
     """在文本的右侧填充空格;
-    在UI界面中,ASCII码占2个空格, 中文占4个空格,
-    """
-    cn_len = sum(True for t in text if '\u4e00' <= t <= '\u9fff')
-    ascii_len = sum(True for t in text if t.isascii())
+    在UI界面中,ASCII码占2个空格, 中文占4个空格;"""
+    # '\u4e01' - '\u9fd5' 表示中文文字范围; '\uff01' - '\uff20'表示中文标点符号范围
+    cn_len = sum(1 for t in text if '\u4e01' <= t <= '\u9fd5' or '\uff01' <= t <= '\uff20')
+    ascii_len = sum(1 for t in text if t.isascii())
     reduce = (cn_len * 4) + (ascii_len * 2)
     real_length = length - reduce
     if real_length < 0:
