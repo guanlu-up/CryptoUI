@@ -6,11 +6,11 @@ from PySide2.QtWidgets import (
     QFileDialog,
     QMessageBox,
     QTableWidgetItem,
-    QMainWindow
+    QMainWindow,
+    QDialog
 )
 
 from account_action import AccountAction
-from versatile import fill_space
 from ui import ui_window
 import basedata
 
@@ -23,10 +23,11 @@ class CryptoClient(QMainWindow):
         UI界面中具体Widgets组件对象名称参考 widgets.md
         """
         super().__init__()
-        self.ui = ui_window.MainWindow()
+        self.ui = ui_window.UIMainWindow()
         self.ui.setupUi(self)
 
-        self.sub_window = DisplayWindow()
+        self.display_window = DisplayWindow()
+        self.protocol_window = ProtocolWindow()
         self.initialization()
         self._crypto_value = {}
         self.private_keystore = None
@@ -43,7 +44,7 @@ class CryptoClient(QMainWindow):
     def _init_push_button(self):
         """初始化 PushButton控件"""
         self.ui.cryptoTabBrowseButton.clicked.connect(
-            self._select_public_key_file)
+            self._select_private_key_file)
         self.ui.cryptoTabAddRow.clicked.connect(
             self._table_widget_add_row)
         self.ui.cryptoTabRemoveRow.clicked.connect(
@@ -69,6 +70,10 @@ class CryptoClient(QMainWindow):
         """初始化; TableWidget控件"""
         self.ui.cryptoTabAccountTable.cellChanged.connect(
             self._encrypt_cells_password)
+        # 查询页;设定展示列表的列宽
+        widths = (200, 230, 350, 150, 150, 150, 150)
+        for index, width in zip(basedata.COLUMN2INDEX.values(), widths):
+            self.ui.queryTabTableWidget.setColumnWidth(index, width)
 
     def _init_line_text(self):
         """初始化 LineText控件"""
@@ -120,9 +125,15 @@ class CryptoClient(QMainWindow):
             return QMessageBox.warning(
                 self, "警告", "您还未选择私钥文件,或选择的文件无效!")
         all_content = self._get_table_widget_content()
-        self._table_widget_clear_rows()
         if not all_content:
             return QMessageBox.warning(self, "警告", "请先输入账户信息!")
+        if not self._check_password_empty(all_content):
+            return None
+        self.protocol_window.window.exec_()
+        if not self.protocol_window.confirm:
+            return None
+        self.protocol_window.confirm = False
+        self._table_widget_clear_rows()
         action = AccountAction(self.private_keystore)
         action.expand_account(all_content)
         QMessageBox.about(self, "提示", "加密完成!")
@@ -135,14 +146,7 @@ class CryptoClient(QMainWindow):
         value = self.ui.queryTabMatchValue.text()
         action = AccountAction(self.private_keystore)
         accounts = action.condition_query(query_range, query_key, match_mode, value)
-        result = []
-        title = ['银行名称', '银行账户', '账户名称']
-        title_line = "".join(fill_space(key, 50) for key in title)
-        result.append(f"{title_line}\n\n")
-        for account in accounts:
-            filled = [fill_space(account[key], 50) for key in title]
-            result.append(f"{''.join(filled)}\n")
-        self.ui.queryTabShowResult.setPlainText(''.join(result))
+        self._query_tab_show_account(accounts)
 
     def _submit_modify_button(self):
         """modifyTab; 提交修改Button"""
@@ -166,6 +170,20 @@ class CryptoClient(QMainWindow):
         QMessageBox.about(
             self, "提示", "修改成功!")
 
+    def _check_password_empty(self, accounts):
+        target_account = None
+        for account in accounts:
+            if not any((account["登录密码"], account["U盾密码"])):
+                target_account = account["银行账户"]
+                break
+        if target_account is None:
+            return True
+        message = f"账户: {target_account}\n当前未填入登录密码和U盾密码,是否继续加密?"
+        choice = QMessageBox.question(self, "提示", message)
+        if choice == QMessageBox.No:
+            return False
+        return True
+
     def _query_type_changed(self):
         if self.ui.queryTabQueryType.currentText() == "全部":
             return self.ui.queryTabMatchValue.setEnabled(False)
@@ -175,9 +193,9 @@ class CryptoClient(QMainWindow):
         """在小窗口中展示当前JSON文件中所有的账号"""
         action = AccountAction(self.private_keystore)
         accounts_no = action.query_account_number_all()
-        self.sub_window.setWindowTitle("银行账户")
-        self.sub_window.set_content("\n".join(accounts_no))
-        self.sub_window.show()
+        self.display_window.setWindowTitle("银行账户")
+        self.display_window.set_content("\n".join(accounts_no))
+        self.display_window.show()
 
     def _modify_tab_change_submit_state(self):
         if self.ui.modifyTabConfirmProtocol.isChecked():
@@ -191,12 +209,28 @@ class CryptoClient(QMainWindow):
         else:
             self.ui.removeTabSubmitButton.setEnabled(False)
 
-    def _select_public_key_file(self):
+    def _select_private_key_file(self):
         """选择私钥文件"""
-        filepath, _ = QFileDialog.getOpenFileName(self, "选择私钥文件", basedata.DEFAULT_DIR)
-        if not os.path.exists(filepath):
+        filepath, _ = QFileDialog.getOpenFileName(
+            self, "选择私钥文件", basedata.DEFAULT_DIR, filter="文件 (*.jks)")
+        if not os.path.isfile(filepath):
             return None
         self.ui.cryptoTabFileEdit.setText(filepath)
+
+    def _query_tab_show_account(self, accounts):
+        """在查询页面中展示过滤后的账户"""
+        self.ui.queryTabTableWidget.setRowCount(0)
+        if not accounts:
+            return QMessageBox.about(self, "提示", "未查询到相符账户信息!")
+        for account in accounts:
+            current_rows = self.ui.queryTabTableWidget.rowCount()
+            self.ui.queryTabTableWidget.insertRow(current_rows)
+            account["登录密码"], account["U盾密码"] = ("******",) * 2
+            for key, index in basedata.COLUMN2INDEX.items():
+                # 为当前行中的每个单元格设置对应内容并居中显示
+                item = QTableWidgetItem(account[key])
+                item.setTextAlignment(Qt.AlignCenter)
+                self.ui.queryTabTableWidget.setItem(current_rows, index, item)
 
     def _table_widget_add_row(self):
         """TableWidget增加新行"""
@@ -227,7 +261,7 @@ class CryptoClient(QMainWindow):
         return value_
 
     def _encrypt_cells_password(self, row, column):
-        """当单元格内容发生改变时需要出发此方法;
+        """当单元格内容发生改变时需要触发此方法;
         此函数是将指定列的单元格内容进行加密展示,用于密码单元格;"""
         columns = basedata.COLUMN2INDEX
         if column not in [columns.get("U盾密码"), columns.get("登录密码")]:
@@ -264,7 +298,7 @@ class DisplayWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.ui = ui_window.SubWindow()
+        self.ui = ui_window.DisplayWindow()
         self.ui.setupUi(self)
         self.initialization()
 
@@ -273,6 +307,35 @@ class DisplayWindow(QMainWindow):
 
     def set_content(self, text):
         self.ui.contentBrowser.setPlainText(text)
+
+
+class ProtocolWindow(object):
+    """用于展示协议内容的交互子窗口"""
+
+    def __init__(self):
+        self.window = QDialog()
+        self.ui = ui_window.ProtocolWindow()
+        self.ui.setupUi(self.window)
+        self.initialization()
+        self.confirm = False
+
+    def _change_confirm(self):
+        self.confirm = True
+        self.window.close()
+
+    def initialization(self):
+        self.ui.ConfirmProtocolCheckBox.stateChanged.connect(
+            self._activation_confirm_button)
+        self.ui.ConfirmProtocolButton.clicked.connect(
+            self._change_confirm)
+        self.ui.CancelProtocolButton.clicked.connect(
+            self.window.close)
+
+    def _activation_confirm_button(self):
+        if self.ui.ConfirmProtocolCheckBox.isChecked():
+            self.ui.ConfirmProtocolButton.setEnabled(True)
+        else:
+            self.ui.ConfirmProtocolButton.setEnabled(False)
 
 
 if __name__ == '__main__':
