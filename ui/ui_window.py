@@ -13,7 +13,7 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class MainWindow(object):
+class UIMainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
@@ -39,7 +39,7 @@ class MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 1001, 671))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 993, 641))
         self.verticalLayout_15 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_15.setObjectName(u"verticalLayout_15")
         self.horizontalLayout = QHBoxLayout()
@@ -243,7 +243,7 @@ class MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1001, 671))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 993, 641))
         self.verticalLayout_14 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_14.setObjectName(u"verticalLayout_14")
         self.horizontalLayout_4 = QHBoxLayout()
@@ -480,7 +480,7 @@ class MainWindow(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 1001, 671))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 993, 641))
         self.verticalLayout_18 = QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout_18.setObjectName(u"verticalLayout_18")
         self.verticalLayout_17 = QVBoxLayout()
@@ -599,15 +599,36 @@ class MainWindow(object):
 
         self.verticalLayout_17.addLayout(self.horizontalLayout_12)
 
-        self.queryTabShowResult = QTextBrowser(self.scrollAreaWidgetContents_3)
-        self.queryTabShowResult.setObjectName(u"queryTabShowResult")
-        self.queryTabShowResult.setFont(font1)
-        self.queryTabShowResult.setLineWrapMode(QTextEdit.NoWrap)
-        self.queryTabShowResult.setOverwriteMode(False)
-        self.queryTabShowResult.setOpenExternalLinks(False)
-        self.queryTabShowResult.setOpenLinks(False)
+        self.queryTabTableWidget = QTableWidget(self.scrollAreaWidgetContents_3)
+        if (self.queryTabTableWidget.columnCount() < 7):
+            self.queryTabTableWidget.setColumnCount(7)
+        __qtablewidgetitem15 = QTableWidgetItem()
+        self.queryTabTableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem15)
+        __qtablewidgetitem16 = QTableWidgetItem()
+        self.queryTabTableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem16)
+        __qtablewidgetitem17 = QTableWidgetItem()
+        self.queryTabTableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem17)
+        __qtablewidgetitem18 = QTableWidgetItem()
+        self.queryTabTableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem18)
+        __qtablewidgetitem19 = QTableWidgetItem()
+        self.queryTabTableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem19)
+        __qtablewidgetitem20 = QTableWidgetItem()
+        self.queryTabTableWidget.setHorizontalHeaderItem(5, __qtablewidgetitem20)
+        __qtablewidgetitem21 = QTableWidgetItem()
+        self.queryTabTableWidget.setHorizontalHeaderItem(6, __qtablewidgetitem21)
+        self.queryTabTableWidget.setObjectName(u"queryTabTableWidget")
+        font7 = QFont()
+        font7.setFamily(u"\u5b8b\u4f53")
+        font7.setPointSize(12)
+        self.queryTabTableWidget.setFont(font7)
+        self.queryTabTableWidget.setAutoScrollMargin(16)
+        self.queryTabTableWidget.horizontalHeader().setCascadingSectionResizes(False)
+        self.queryTabTableWidget.horizontalHeader().setMinimumSectionSize(100)
+        self.queryTabTableWidget.horizontalHeader().setDefaultSectionSize(200)
+        self.queryTabTableWidget.verticalHeader().setMinimumSectionSize(30)
+        self.queryTabTableWidget.verticalHeader().setDefaultSectionSize(35)
 
-        self.verticalLayout_17.addWidget(self.queryTabShowResult)
+        self.verticalLayout_17.addWidget(self.queryTabTableWidget)
 
         self.verticalSpacer_9 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Fixed)
 
@@ -642,7 +663,7 @@ class MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 1001, 671))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 993, 641))
         self.horizontalLayout_19 = QHBoxLayout(self.scrollAreaWidgetContents_4)
         self.horizontalLayout_19.setObjectName(u"horizontalLayout_19")
         self.horizontalSpacer_16 = QSpacerItem(125, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -758,7 +779,7 @@ class MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1045, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1045, 26))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -808,7 +829,7 @@ class MainWindow(object):
         self.cryptoTabAccountTable.setSortingEnabled(__sortingEnabled)
 
         self.cryptoTabEncryptButton.setText(QCoreApplication.translate("MainWindow", u"\u52a0\u5bc6", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.cryptoTab), QCoreApplication.translate("MainWindow", u"\u8d26\u6237\u52a0\u5bc6", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.cryptoTab), QCoreApplication.translate("MainWindow", u"\u52a0\u5bc6\u8d26\u6237", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"\u4fee\u6539\u7c7b\u578b\uff1a", None))
         self.modifyTabTypeComboBox.setItemText(0, QCoreApplication.translate("MainWindow", u"\u767b\u5f55\u5bc6\u7801", None))
         self.modifyTabTypeComboBox.setItemText(1, QCoreApplication.translate("MainWindow", u"U\u76fe\u5bc6\u7801", None))
@@ -825,28 +846,28 @@ class MainWindow(object):
         self.groupBox_5.setTitle(QCoreApplication.translate("MainWindow", u"\u8bf7\u5148\u9605\u8bfb\u5e76\u540c\u610f\u534f\u8bae", None))
         self.textBrowser_3.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap }\n"
-"</style></head><body style=\" font-family:'Sitka Subheading','Sitka Subheading','Sitka Subheading' font-size:12pt font-weight:400 font-style:normal\">\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Helvetica Neue','Helvetica','Arial','sans-serif' font-size:14pt font-weight:696 color:#333333 background-color:#ffffff\">\u00a0\u5c0a\u656c\u7684\u7528\u6237\uff1a</span></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">\u4e3a\u4e86\u66f4\u597d\u5730\u4e3a\u60a8\u63d0\u4f9b\u670d\u52a1\uff0c\u8bf7\u60a8\u4ed4\u7ec6\u9605\u8bfb\u672c\u300a\u7528\u6237\u670d\u52a1"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sitka Subheading','Sitka Subheading','Sitka Subheading'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14pt; font-weight:696; color:#333333; background-color:#ffffff;\">\u00a0\u5c0a\u656c\u7684\u7528\u6237\uff1a</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">\u4e3a\u4e86\u66f4\u597d\u5730\u4e3a\u60a8\u63d0\u4f9b\u670d\u52a1\uff0c\u8bf7\u60a8\u4ed4\u7ec6\u9605\u8bfb\u672c\u300a\u7528\u6237\u670d\u52a1"
                         "\u534f\u8bae\u300b\uff08\u4ee5\u4e0b\u7b80\u79f0\u201c\u672c\u534f\u8bae\u201d\uff09\u3002\u5728\u60a8\u5f00\u59cb\u4f7f\u7528\u672c\u5e94\u7528\u53ca\u76f8\u5173\u670d\u52a1\u4e4b\u524d\uff0c\u8bf7\u60a8\u52a1\u5fc5\u8ba4\u771f\u9605\u8bfb\u5e76\u5145\u5206\u7406\u89e3\u672c\u534f\u8bae\uff0c\u5982\u60a8\u672a\u6ee118\u5468\u5c81\uff0c\u8bf7\u60a8\u5728\u6cd5\u5b9a\u76d1\u62a4\u4eba\u966a\u540c\u4e0b\u4ed4\u7ec6\u9605\u8bfb\u5e76\u5145\u5206\u7406\u89e3\u672c\u534f\u8bae\uff0c\u5e76\u5f81\u5f97\u6cd5\u5b9a\u76d1\u62a4\u4eba\u7684\u540c\u610f\u540e\u4e0b\u8f7d\u672c\u5e94\u7528\u3002\u5f53\u60a8\u5b8c\u5168\u5b8c\u6210\u6ce8\u518c\u7a0b\u5e8f\uff0c\u4fbf\u6210\u4e3a\u672c\u5e94\u7528\u7684\u6ce8\u518c\u7528\u6237\uff0c\u540c\u65f6\u6b64\u534f\u8bae\u5373\u65f6\u751f\u6548\u3002\u60a8\u6709\u4e49\u52a1\u4fdd\u8bc1\u5bc6\u7801\u548c\u5e10\u53f7\u7684\u5b89\u5168\u3002\u60a8\u5bf9\u5229\u7528\u8be5\u5bc6\u7801\u548c\u5e10\u53f7\u6240\u8fdb\u884c\u7684\u4e00\u5207\u6d3b\u52a8\u8d1f\u5168\u90e8\u8d23\u4efb\uff1b\u56e0"
                         "\u6b64\u6240\u884d\u751f\u7684\u4efb\u4f55\u635f\u5931\u6216\u635f\u5bb3\uff0c\u6211\u4eec\u65e0\u6cd5\u4e5f\u4e0d\u627f\u62c5\u4efb\u4f55\u8d23\u4efb\u3002</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px font-family:'Sitka Subheading'\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">\u4e3a\u4e86\u80fd\u4f7f\u7528\u672c\u670d\u52a1\uff0c\u60a8\u540c\u610f\u4ee5\u4e0b\u4e8b\u9879\uff1a</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px font-family:'Sitka Subheading'\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">(1) \u7ef4"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sitka Subheading';\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">\u4e3a\u4e86\u80fd\u4f7f\u7528\u672c\u670d\u52a1\uff0c\u60a8\u540c\u610f\u4ee5\u4e0b\u4e8b\u9879\uff1a</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sitka Subheading';\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(1) \u7ef4"
                         "\u6301\u66f4\u65b0\u60a8\u4e2a\u4eba\u7528\u6237\u4fe1\u606f\uff0c\u786e\u4fdd\u5176\u771f\u5b9e\u3001\u6b63\u786e\u3001\u6700\u65b0\u53ca\u5b8c\u6574\u3002</span></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">\u82e5\u60a8\u63d0\u4f9b\u4efb\u4f55\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\u7684\u8d44\u6599\uff0c\u5e76\u4e3a\u5e94\u7528\u6240\u786e\u77e5\uff0c\u6216\u8005\u5e94\u7528\u6709\u5408\u7406\u7684\u7406\u7531\u6000\u7591\u524d\u8ff0\u8d44\u6599\u4e3a\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\uff0c\u6211\u53f8\u6709\u6743\u6682\u505c\u6216\u7ec8\u6b62\u60a8\u7684\u5e10\u53f7\uff0c\u5e76\u62d2\u7edd\u60a8\u4e8e\u73b0\u5728\u548c\u672a\u6765\u4f7f\u7528\u5e94\u7528\u5168\u90e8\u6216\u90e8\u5206\u7684\u670d\u52a1\u3002</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0"
-                        "px margin-right:0px -qt-block-indent:0 text-indent:0px font-family:'Sitka Subheading'\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">(2) \u5e94\u7528\u4e0d\u5bf9\u7528\u6237\u6240\u53d1\u5e03\u4fe1\u606f\u7684\u5220\u9664\u6216\u50a8\u5b58\u5931\u8d25\u8d1f\u8d23\u3002</span></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">\u5e94\u7528\u5e76\u4e0d\u627f\u8bfa\u5bf9\u7528\u6237\u7684\u5b58\u50a8\u4fe1\u606f\u8fdb\u884c\u65e0\u9650\u671f\u4fdd\u7559\u3002\u9664\u975e\u672c\u534f\u8bae\u4e2d\u53e6\u6709\u89c4\u5b9a\uff0c\u5426\u5219\u5e94\u7528\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e00\u5b9a\u4f1a\u6ee1\u8db3\u7528\u6237\u7684\u4f7f\u7528\u8981\u6c42\uff0c\u4e5f\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e0d\u4f1a\u53d7\u4e2d\u65ad\uff0c\u5bf9\u670d\u52a1\u7684"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">\u82e5\u60a8\u63d0\u4f9b\u4efb\u4f55\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\u7684\u8d44\u6599\uff0c\u5e76\u4e3a\u5e94\u7528\u6240\u786e\u77e5\uff0c\u6216\u8005\u5e94\u7528\u6709\u5408\u7406\u7684\u7406\u7531\u6000\u7591\u524d\u8ff0\u8d44\u6599\u4e3a\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\uff0c\u6211\u53f8\u6709\u6743\u6682\u505c\u6216\u7ec8\u6b62\u60a8\u7684\u5e10\u53f7\uff0c\u5e76\u62d2\u7edd\u60a8\u4e8e\u73b0\u5728\u548c\u672a\u6765\u4f7f\u7528\u5e94\u7528\u5168\u90e8\u6216\u90e8\u5206\u7684\u670d\u52a1\u3002</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0"
+                        "px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sitka Subheading';\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(2) \u5e94\u7528\u4e0d\u5bf9\u7528\u6237\u6240\u53d1\u5e03\u4fe1\u606f\u7684\u5220\u9664\u6216\u50a8\u5b58\u5931\u8d25\u8d1f\u8d23\u3002</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">\u5e94\u7528\u5e76\u4e0d\u627f\u8bfa\u5bf9\u7528\u6237\u7684\u5b58\u50a8\u4fe1\u606f\u8fdb\u884c\u65e0\u9650\u671f\u4fdd\u7559\u3002\u9664\u975e\u672c\u534f\u8bae\u4e2d\u53e6\u6709\u89c4\u5b9a\uff0c\u5426\u5219\u5e94\u7528\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e00\u5b9a\u4f1a\u6ee1\u8db3\u7528\u6237\u7684\u4f7f\u7528\u8981\u6c42\uff0c\u4e5f\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e0d\u4f1a\u53d7\u4e2d\u65ad\uff0c\u5bf9\u670d\u52a1\u7684"
                         "\u53ca\u65f6\u6027\u3001\u5b89\u5168\u6027\u3001\u51c6\u786e\u6027\u4e5f\u4e0d\u4f5c\u62c5\u4fdd\u3002\u5e94\u7528\u6709\u5224\u5b9a\u7528\u6237\u7684\u884c\u4e3a\u662f\u5426\u7b26\u5408\u5e94\u7528\u670d\u52a1\u6761\u6b3e\u7684\u8981\u6c42\u548c\u7cbe\u795e\u7684\u4fdd\u7559\u6743\u5229\uff0c\u5982\u679c\u7528\u6237\u8fdd\u80cc\u4e86\u670d\u52a1\u6761\u6b3e\u7684\u89c4\u5b9a\uff0c\u5e94\u7528\u6709\u4e2d\u65ad\u5bf9\u5176\u63d0\u4f9b\u7f51\u7edc\u670d\u52a1\u7684\u6743\u5229\u3002</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px font-family:'Sitka Subheading'\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">(3) \u7528\u6237\u5bf9\u7f51\u7edc\u670d\u52a1\u7684\u4f7f\u7528\u627f\u62c5\u98ce\u9669\u3002\u5e94\u7528\u5bf9\u6b64\u4e0d\u4f5c\u4efb\u4f55\u7c7b\u578b\u7684"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sitka Subheading';\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(3) \u7528\u6237\u5bf9\u7f51\u7edc\u670d\u52a1\u7684\u4f7f\u7528\u627f\u62c5\u98ce\u9669\u3002\u5e94\u7528\u5bf9\u6b64\u4e0d\u4f5c\u4efb\u4f55\u7c7b\u578b\u7684"
                         "\u62c5\u4fdd\uff0c\u4e0d\u8bba\u662f\u660e\u786e\u7684\u6216\u9690\u542b\u7684\uff0c\u4f46\u662f\u4e0d\u5bf9\u5546\u4e1a\u6027\u7684\u9690\u542b\u62c5\u4fdd\u3001\u7279\u5b9a\u76ee\u7684\u548c\u4e0d\u8fdd\u53cd\u89c4\u5b9a\u7684\u9002\u5f53\u62c5\u4fdd\u4f5c\u9650\u5236</span></p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px font-family:'Sitka Subheading'\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Sitka Subheading'\">(4) \u7528\u6237\u5355\u72ec\u627f\u62c5\u53d1\u5e03\u5185\u5bb9\u7684\u8d23\u4efb\u3002\u7528\u6237\u5bf9\u670d\u52a1\u7684\u4f7f\u7528\u662f\u6839\u636e\u6240\u6709\u9002\u7528\u4e8e\u5e94\u7528\u7684\u56fd\u5bb6\u6cd5\u5f8b\u3001\u5730\u65b9\u6cd5\u5f8b\u548c\u56fd\u9645\u6cd5\u5f8b\u6807\u51c6\u7684\u3002</span></p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sitka Subheading';\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(4) \u7528\u6237\u5355\u72ec\u627f\u62c5\u53d1\u5e03\u5185\u5bb9\u7684\u8d23\u4efb\u3002\u7528\u6237\u5bf9\u670d\u52a1\u7684\u4f7f\u7528\u662f\u6839\u636e\u6240\u6709\u9002\u7528\u4e8e\u5e94\u7528\u7684\u56fd\u5bb6\u6cd5\u5f8b\u3001\u5730\u65b9\u6cd5\u5f8b\u548c\u56fd\u9645\u6cd5\u5f8b\u6807\u51c6\u7684\u3002</span></p></body></html>", None))
         self.modifyTabConfirmProtocol.setText(QCoreApplication.translate("MainWindow", u"\u540c\u610f\u670d\u52a1\u534f\u8bae", None))
         self.modifyTabSubmitButton.setText(QCoreApplication.translate("MainWindow", u"\u63d0\u4ea4", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.modifyTab), QCoreApplication.translate("MainWindow", u"\u4fee\u6539\u8d26\u6237", None))
@@ -863,11 +884,20 @@ class MainWindow(object):
         self.queryTabCompleteMatch.setText(QCoreApplication.translate("MainWindow", u"\u5b8c\u6574\u5339\u914d", None))
         self.queryTabVagueMatch.setText(QCoreApplication.translate("MainWindow", u"\u6a21\u7cca\u5339\u914d", None))
         self.label_9.setText(QCoreApplication.translate("MainWindow", u"\u5185\u5bb9\u5c55\u793a", None))
-        self.queryTabShowResult.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap }\n"
-"</style></head><body style=\" font-family:'Calibri','Sitka Subheading' font-size:12pt font-weight:400 font-style:normal\">\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><br /></p></body></html>", None))
+        ___qtablewidgetitem11 = self.queryTabTableWidget.horizontalHeaderItem(0)
+        ___qtablewidgetitem11.setText(QCoreApplication.translate("MainWindow", u"\u94f6\u884c\u540d\u79f0", None))
+        ___qtablewidgetitem12 = self.queryTabTableWidget.horizontalHeaderItem(1)
+        ___qtablewidgetitem12.setText(QCoreApplication.translate("MainWindow", u"\u94f6\u884c\u8d26\u6237", None))
+        ___qtablewidgetitem13 = self.queryTabTableWidget.horizontalHeaderItem(2)
+        ___qtablewidgetitem13.setText(QCoreApplication.translate("MainWindow", u"\u8d26\u6237\u540d\u79f0", None))
+        ___qtablewidgetitem14 = self.queryTabTableWidget.horizontalHeaderItem(3)
+        ___qtablewidgetitem14.setText(QCoreApplication.translate("MainWindow", u"\u767b\u5f55\u5bc6\u7801", None))
+        ___qtablewidgetitem15 = self.queryTabTableWidget.horizontalHeaderItem(4)
+        ___qtablewidgetitem15.setText(QCoreApplication.translate("MainWindow", u"U\u76fe\u5bc6\u7801", None))
+        ___qtablewidgetitem16 = self.queryTabTableWidget.horizontalHeaderItem(5)
+        ___qtablewidgetitem16.setText(QCoreApplication.translate("MainWindow", u"\u5ba2\u6237\u53f7", None))
+        ___qtablewidgetitem17 = self.queryTabTableWidget.horizontalHeaderItem(6)
+        ___qtablewidgetitem17.setText(QCoreApplication.translate("MainWindow", u"\u64cd\u4f5c\u5458\u53f7", None))
         self.queryTabSubmitQuery.setText(QCoreApplication.translate("MainWindow", u"\u67e5\u8be2", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.queryTab), QCoreApplication.translate("MainWindow", u"\u67e5\u8be2\u8d26\u6237", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"\u76ee\u6807\u8d26\u6237\uff1a", None))
@@ -875,38 +905,38 @@ class MainWindow(object):
         self.groupBox_4.setTitle(QCoreApplication.translate("MainWindow", u"\u8bf7\u5148\u9605\u8bfb\u5e76\u540c\u610f\u534f\u8bae", None))
         self.textBrowser_2.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap }\n"
-"</style></head><body style=\" font-family:'Sitka Subheading' font-size:12pt font-weight:400 font-style:normal\">\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><span style=\" font-family:'Helvetica Neue','Helvetica','Arial','sans-serif' font-size:14pt font-weight:696 color:#333333 background-color:#ffffff\">\u00a0\u5c0a\u656c\u7684\u7528\u6237\uff1a</span></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\">\u4e3a\u4e86\u66f4\u597d\u5730\u4e3a\u60a8\u63d0\u4f9b\u670d\u52a1\uff0c\u8bf7\u60a8\u4ed4\u7ec6\u9605\u8bfb\u672c\u300a\u7528\u6237\u670d\u52a1\u534f\u8bae\u300b\uff08\u4ee5\u4e0b\u7b80\u79f0\u201c\u672c\u534f\u8bae\u201d\uff09"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Sitka Subheading'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Helvetica Neue','Helvetica','Arial','sans-serif'; font-size:14pt; font-weight:696; color:#333333; background-color:#ffffff;\">\u00a0\u5c0a\u656c\u7684\u7528\u6237\uff1a</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\u4e3a\u4e86\u66f4\u597d\u5730\u4e3a\u60a8\u63d0\u4f9b\u670d\u52a1\uff0c\u8bf7\u60a8\u4ed4\u7ec6\u9605\u8bfb\u672c\u300a\u7528\u6237\u670d\u52a1\u534f\u8bae\u300b\uff08\u4ee5\u4e0b\u7b80\u79f0\u201c\u672c\u534f\u8bae\u201d\uff09"
                         "\u3002\u5728\u60a8\u5f00\u59cb\u4f7f\u7528\u672c\u5e94\u7528\u53ca\u76f8\u5173\u670d\u52a1\u4e4b\u524d\uff0c\u8bf7\u60a8\u52a1\u5fc5\u8ba4\u771f\u9605\u8bfb\u5e76\u5145\u5206\u7406\u89e3\u672c\u534f\u8bae\uff0c\u5982\u60a8\u672a\u6ee118\u5468\u5c81\uff0c\u8bf7\u60a8\u5728\u6cd5\u5b9a\u76d1\u62a4\u4eba\u966a\u540c\u4e0b\u4ed4\u7ec6\u9605\u8bfb\u5e76\u5145\u5206\u7406\u89e3\u672c\u534f\u8bae\uff0c\u5e76\u5f81\u5f97\u6cd5\u5b9a\u76d1\u62a4\u4eba\u7684\u540c\u610f\u540e\u4e0b\u8f7d\u672c\u5e94\u7528\u3002\u5f53\u60a8\u5b8c\u5168\u5b8c\u6210\u6ce8\u518c\u7a0b\u5e8f\uff0c\u4fbf\u6210\u4e3a\u672c\u5e94\u7528\u7684\u6ce8\u518c\u7528\u6237\uff0c\u540c\u65f6\u6b64\u534f\u8bae\u5373\u65f6\u751f\u6548\u3002\u60a8\u6709\u4e49\u52a1\u4fdd\u8bc1\u5bc6\u7801\u548c\u5e10\u53f7\u7684\u5b89\u5168\u3002\u60a8\u5bf9\u5229\u7528\u8be5\u5bc6\u7801\u548c\u5e10\u53f7\u6240\u8fdb\u884c\u7684\u4e00\u5207\u6d3b\u52a8\u8d1f\u5168\u90e8\u8d23\u4efb\uff1b\u56e0\u6b64\u6240\u884d\u751f\u7684\u4efb\u4f55\u635f\u5931\u6216\u635f\u5bb3\uff0c\u6211"
                         "\u4eec\u65e0\u6cd5\u4e5f\u4e0d\u627f\u62c5\u4efb\u4f55\u8d23\u4efb\u3002</p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\">\u4e3a\u4e86\u80fd\u4f7f\u7528\u672c\u670d\u52a1\uff0c\u60a8\u540c\u610f\u4ee5\u4e0b\u4e8b\u9879\uff1a</p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\">(1) \u7ef4\u6301\u66f4\u65b0\u60a8\u4e2a\u4eba\u7528\u6237\u4fe1\u606f\uff0c\u786e\u4fdd\u5176\u771f\u5b9e\u3001\u6b63\u786e\u3001\u6700\u65b0\u53ca\u5b8c\u6574\u3002</p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-in"
-                        "dent:0 text-indent:0px\">\u82e5\u60a8\u63d0\u4f9b\u4efb\u4f55\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\u7684\u8d44\u6599\uff0c\u5e76\u4e3a\u5e94\u7528\u6240\u786e\u77e5\uff0c\u6216\u8005\u5e94\u7528\u6709\u5408\u7406\u7684\u7406\u7531\u6000\u7591\u524d\u8ff0\u8d44\u6599\u4e3a\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\uff0c\u6211\u53f8\u6709\u6743\u6682\u505c\u6216\u7ec8\u6b62\u60a8\u7684\u5e10\u53f7\uff0c\u5e76\u62d2\u7edd\u60a8\u4e8e\u73b0\u5728\u548c\u672a\u6765\u4f7f\u7528\u5e94\u7528\u5168\u90e8\u6216\u90e8\u5206\u7684\u670d\u52a1\u3002</p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\">(2) \u5e94\u7528\u4e0d\u5bf9\u7528\u6237\u6240\u53d1\u5e03\u4fe1\u606f\u7684\u5220\u9664\u6216\u50a8\u5b58\u5931\u8d25\u8d1f\u8d23"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\u4e3a\u4e86\u80fd\u4f7f\u7528\u672c\u670d\u52a1\uff0c\u60a8\u540c\u610f\u4ee5\u4e0b\u4e8b\u9879\uff1a</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">(1) \u7ef4\u6301\u66f4\u65b0\u60a8\u4e2a\u4eba\u7528\u6237\u4fe1\u606f\uff0c\u786e\u4fdd\u5176\u771f\u5b9e\u3001\u6b63\u786e\u3001\u6700\u65b0\u53ca\u5b8c\u6574\u3002</p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-in"
+                        "dent:0; text-indent:0px;\">\u82e5\u60a8\u63d0\u4f9b\u4efb\u4f55\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\u7684\u8d44\u6599\uff0c\u5e76\u4e3a\u5e94\u7528\u6240\u786e\u77e5\uff0c\u6216\u8005\u5e94\u7528\u6709\u5408\u7406\u7684\u7406\u7531\u6000\u7591\u524d\u8ff0\u8d44\u6599\u4e3a\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\uff0c\u6211\u53f8\u6709\u6743\u6682\u505c\u6216\u7ec8\u6b62\u60a8\u7684\u5e10\u53f7\uff0c\u5e76\u62d2\u7edd\u60a8\u4e8e\u73b0\u5728\u548c\u672a\u6765\u4f7f\u7528\u5e94\u7528\u5168\u90e8\u6216\u90e8\u5206\u7684\u670d\u52a1\u3002</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">(2) \u5e94\u7528\u4e0d\u5bf9\u7528\u6237\u6240\u53d1\u5e03\u4fe1\u606f\u7684\u5220\u9664\u6216\u50a8\u5b58\u5931\u8d25\u8d1f\u8d23"
                         "\u3002</p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\">\u5e94\u7528\u5e76\u4e0d\u627f\u8bfa\u5bf9\u7528\u6237\u7684\u5b58\u50a8\u4fe1\u606f\u8fdb\u884c\u65e0\u9650\u671f\u4fdd\u7559\u3002\u9664\u975e\u672c\u534f\u8bae\u4e2d\u53e6\u6709\u89c4\u5b9a\uff0c\u5426\u5219\u5e94\u7528\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e00\u5b9a\u4f1a\u6ee1\u8db3\u7528\u6237\u7684\u4f7f\u7528\u8981\u6c42\uff0c\u4e5f\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e0d\u4f1a\u53d7\u4e2d\u65ad\uff0c\u5bf9\u670d\u52a1\u7684\u53ca\u65f6\u6027\u3001\u5b89\u5168\u6027\u3001\u51c6\u786e\u6027\u4e5f\u4e0d\u4f5c\u62c5\u4fdd\u3002\u5e94\u7528\u6709\u5224\u5b9a\u7528\u6237\u7684\u884c\u4e3a\u662f\u5426\u7b26\u5408\u5e94\u7528\u670d\u52a1\u6761\u6b3e\u7684\u8981\u6c42\u548c\u7cbe\u795e\u7684\u4fdd\u7559\u6743\u5229\uff0c\u5982\u679c\u7528\u6237\u8fdd\u80cc\u4e86\u670d\u52a1\u6761\u6b3e\u7684\u89c4\u5b9a\uff0c\u5e94\u7528\u6709\u4e2d\u65ad\u5bf9\u5176\u63d0\u4f9b\u7f51\u7edc\u670d\u52a1\u7684"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\u5e94\u7528\u5e76\u4e0d\u627f\u8bfa\u5bf9\u7528\u6237\u7684\u5b58\u50a8\u4fe1\u606f\u8fdb\u884c\u65e0\u9650\u671f\u4fdd\u7559\u3002\u9664\u975e\u672c\u534f\u8bae\u4e2d\u53e6\u6709\u89c4\u5b9a\uff0c\u5426\u5219\u5e94\u7528\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e00\u5b9a\u4f1a\u6ee1\u8db3\u7528\u6237\u7684\u4f7f\u7528\u8981\u6c42\uff0c\u4e5f\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e0d\u4f1a\u53d7\u4e2d\u65ad\uff0c\u5bf9\u670d\u52a1\u7684\u53ca\u65f6\u6027\u3001\u5b89\u5168\u6027\u3001\u51c6\u786e\u6027\u4e5f\u4e0d\u4f5c\u62c5\u4fdd\u3002\u5e94\u7528\u6709\u5224\u5b9a\u7528\u6237\u7684\u884c\u4e3a\u662f\u5426\u7b26\u5408\u5e94\u7528\u670d\u52a1\u6761\u6b3e\u7684\u8981\u6c42\u548c\u7cbe\u795e\u7684\u4fdd\u7559\u6743\u5229\uff0c\u5982\u679c\u7528\u6237\u8fdd\u80cc\u4e86\u670d\u52a1\u6761\u6b3e\u7684\u89c4\u5b9a\uff0c\u5e94\u7528\u6709\u4e2d\u65ad\u5bf9\u5176\u63d0\u4f9b\u7f51\u7edc\u670d\u52a1\u7684"
                         "\u6743\u5229\u3002</p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\">(3) \u7528\u6237\u5bf9\u7f51\u7edc\u670d\u52a1\u7684\u4f7f\u7528\u627f\u62c5\u98ce\u9669\u3002\u5e94\u7528\u5bf9\u6b64\u4e0d\u4f5c\u4efb\u4f55\u7c7b\u578b\u7684\u62c5\u4fdd\uff0c\u4e0d\u8bba\u662f\u660e\u786e\u7684\u6216\u9690\u542b\u7684\uff0c\u4f46\u662f\u4e0d\u5bf9\u5546\u4e1a\u6027\u7684\u9690\u542b\u62c5\u4fdd\u3001\u7279\u5b9a\u76ee\u7684\u548c\u4e0d\u8fdd\u53cd\u89c4\u5b9a\u7684\u9002\u5f53\u62c5\u4fdd\u4f5c\u9650\u5236</p>\n"
-"<p style=\"-qt-paragraph-type:empty margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0px\"><br /></p>\n"
-"<p style=\" margin-top:0px margin-bottom:0px margin-left:0px margin-right:0px -qt-block-indent:0 text-indent:0p"
-                        "x\">(4) \u7528\u6237\u5355\u72ec\u627f\u62c5\u53d1\u5e03\u5185\u5bb9\u7684\u8d23\u4efb\u3002\u7528\u6237\u5bf9\u670d\u52a1\u7684\u4f7f\u7528\u662f\u6839\u636e\u6240\u6709\u9002\u7528\u4e8e\u5e94\u7528\u7684\u56fd\u5bb6\u6cd5\u5f8b\u3001\u5730\u65b9\u6cd5\u5f8b\u548c\u56fd\u9645\u6cd5\u5f8b\u6807\u51c6\u7684\u3002</p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">(3) \u7528\u6237\u5bf9\u7f51\u7edc\u670d\u52a1\u7684\u4f7f\u7528\u627f\u62c5\u98ce\u9669\u3002\u5e94\u7528\u5bf9\u6b64\u4e0d\u4f5c\u4efb\u4f55\u7c7b\u578b\u7684\u62c5\u4fdd\uff0c\u4e0d\u8bba\u662f\u660e\u786e\u7684\u6216\u9690\u542b\u7684\uff0c\u4f46\u662f\u4e0d\u5bf9\u5546\u4e1a\u6027\u7684\u9690\u542b\u62c5\u4fdd\u3001\u7279\u5b9a\u76ee\u7684\u548c\u4e0d\u8fdd\u53cd\u89c4\u5b9a\u7684\u9002\u5f53\u62c5\u4fdd\u4f5c\u9650\u5236</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0p"
+                        "x;\">(4) \u7528\u6237\u5355\u72ec\u627f\u62c5\u53d1\u5e03\u5185\u5bb9\u7684\u8d23\u4efb\u3002\u7528\u6237\u5bf9\u670d\u52a1\u7684\u4f7f\u7528\u662f\u6839\u636e\u6240\u6709\u9002\u7528\u4e8e\u5e94\u7528\u7684\u56fd\u5bb6\u6cd5\u5f8b\u3001\u5730\u65b9\u6cd5\u5f8b\u548c\u56fd\u9645\u6cd5\u5f8b\u6807\u51c6\u7684\u3002</p></body></html>", None))
         self.removeTabConfirmProtocol.setText(QCoreApplication.translate("MainWindow", u"\u540c\u610f\u670d\u52a1\u534f\u8bae", None))
         self.removeTabSubmitButton.setText(QCoreApplication.translate("MainWindow", u"\u63d0\u4ea4", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.removeTab), QCoreApplication.translate("MainWindow", u"\u5220\u9664\u8d26\u6237", None))
     # retranslateUi
 
 
-class SubWindow(object):
+class DisplayWindow(object):
     def setupUi(self, SubWindow):
         if not SubWindow.objectName():
-            SubWindow.setObjectName(u"SubWindow")
+            SubWindow.setObjectName(u"DisplayWindow")
         SubWindow.resize(481, 429)
         self.contentBrowser = QTextBrowser(SubWindow)
         self.contentBrowser.setObjectName(u"contentBrowser")
@@ -925,6 +955,113 @@ class SubWindow(object):
     # setupUi
 
     def retranslateUi(self, SubWindow):
-        SubWindow.setWindowTitle(QCoreApplication.translate("SubWindow", u"\u5c55\u793a", None))
-        self.returnButton.setText(QCoreApplication.translate("SubWindow", u"\u8fd4\u56de", None))
+        SubWindow.setWindowTitle(QCoreApplication.translate("DisplayWindow", u"\u5c55\u793a", None))
+        self.returnButton.setText(QCoreApplication.translate("DisplayWindow", u"\u8fd4\u56de", None))
+    # retranslateUi
+
+
+class ProtocolWindow(object):
+    def setupUi(self, Dialog):
+        if not Dialog.objectName():
+            Dialog.setObjectName(u"Dialog")
+        Dialog.resize(625, 412)
+        self.verticalLayout_2 = QVBoxLayout(Dialog)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.groupBox = QGroupBox(Dialog)
+        self.groupBox.setObjectName(u"groupBox")
+        font = QFont()
+        font.setFamily(u"Calibri")
+        font.setPointSize(12)
+        self.groupBox.setFont(font)
+        self.verticalLayout = QVBoxLayout(self.groupBox)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.ReadingArea = QTextBrowser(self.groupBox)
+        self.ReadingArea.setObjectName(u"ReadingArea")
+        self.ReadingArea.setFont(font)
+
+        self.verticalLayout.addWidget(self.ReadingArea)
+
+
+        self.verticalLayout_2.addWidget(self.groupBox)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(13, -1, -1, -1)
+        self.ConfirmProtocolCheckBox = QCheckBox(Dialog)
+        self.ConfirmProtocolCheckBox.setObjectName(u"ConfirmProtocolCheckBox")
+        font1 = QFont()
+        font1.setFamily(u"Calibri")
+        font1.setPointSize(10)
+        self.ConfirmProtocolCheckBox.setFont(font1)
+
+        self.horizontalLayout_2.addWidget(self.ConfirmProtocolCheckBox)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.horizontalLayout_2.addItem(self.horizontalSpacer)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.ConfirmProtocolButton = QPushButton(Dialog)
+        self.ConfirmProtocolButton.setObjectName(u"ConfirmProtocolButton")
+        self.ConfirmProtocolButton.setEnabled(False)
+        sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.ConfirmProtocolButton.sizePolicy().hasHeightForWidth())
+        self.ConfirmProtocolButton.setSizePolicy(sizePolicy)
+        self.ConfirmProtocolButton.setMinimumSize(QSize(0, 0))
+        self.ConfirmProtocolButton.setFont(font)
+        self.ConfirmProtocolButton.setFocusPolicy(Qt.StrongFocus)
+        self.ConfirmProtocolButton.setContextMenuPolicy(Qt.DefaultContextMenu)
+        self.ConfirmProtocolButton.setIconSize(QSize(20, 20))
+
+        self.horizontalLayout.addWidget(self.ConfirmProtocolButton)
+
+        self.CancelProtocolButton = QPushButton(Dialog)
+        self.CancelProtocolButton.setObjectName(u"CancelProtocolButton")
+        sizePolicy.setHeightForWidth(self.CancelProtocolButton.sizePolicy().hasHeightForWidth())
+        self.CancelProtocolButton.setSizePolicy(sizePolicy)
+        self.CancelProtocolButton.setFont(font)
+
+        self.horizontalLayout.addWidget(self.CancelProtocolButton)
+
+
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
+
+
+        self.retranslateUi(Dialog)
+
+        QMetaObject.connectSlotsByName(Dialog)
+    # setupUi
+
+    def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\u534f\u8bae\u9605\u8bfb", None))
+        self.groupBox.setTitle(QCoreApplication.translate("Dialog", u"\u8bf7\u5148\u9605\u8bfb\u5e76\u540c\u610f\u534f\u8bae", None))
+        self.ReadingArea.setHtml(QCoreApplication.translate("Dialog", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:'Calibri','Calibri'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'SimSun'; font-weight:600;\">\u5c0a\u656c\u7684\u7528\u6237\uff1a</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">\u4e3a\u4e86\u66f4\u597d\u5730\u4e3a\u60a8\u63d0\u4f9b\u670d\u52a1\uff0c\u8bf7\u60a8\u4ed4\u7ec6\u9605\u8bfb\u672c\u300a\u7528\u6237\u670d\u52a1\u534f\u8bae\u300b\uff08\u4ee5\u4e0b\u7b80\u79f0\u201c\u672c\u534f\u8bae\u201d\uff09\u3002\u5728\u60a8\u5f00\u59cb\u4f7f\u7528\u672c\u5e94"
+                        "\u7528\u53ca\u76f8\u5173\u670d\u52a1\u4e4b\u524d\uff0c\u8bf7\u60a8\u52a1\u5fc5\u8ba4\u771f\u9605\u8bfb\u5e76\u5145\u5206\u7406\u89e3\u672c\u534f\u8bae\uff0c\u5982\u60a8\u672a\u6ee118\u5468\u5c81\uff0c\u8bf7\u60a8\u5728\u6cd5\u5b9a\u76d1\u62a4\u4eba\u966a\u540c\u4e0b\u4ed4\u7ec6\u9605\u8bfb\u5e76\u5145\u5206\u7406\u89e3\u672c\u534f\u8bae\uff0c\u5e76\u5f81\u5f97\u6cd5\u5b9a\u76d1\u62a4\u4eba\u7684\u540c\u610f\u540e\u4e0b\u8f7d\u672c\u5e94\u7528\u3002\u5f53\u60a8\u5b8c\u5168\u5b8c\u6210\u6ce8\u518c\u7a0b\u5e8f\uff0c\u4fbf\u6210\u4e3a\u672c\u5e94\u7528\u7684\u6ce8\u518c\u7528\u6237\uff0c\u540c\u65f6\u6b64\u534f\u8bae\u5373\u65f6\u751f\u6548\u3002\u60a8\u6709\u4e49\u52a1\u4fdd\u8bc1\u5bc6\u7801\u548c\u5e10\u53f7\u7684\u5b89\u5168\u3002\u60a8\u5bf9\u5229\u7528\u8be5\u5bc6\u7801\u548c\u5e10\u53f7\u6240\u8fdb\u884c\u7684\u4e00\u5207\u6d3b\u52a8\u8d1f\u5168\u90e8\u8d23\u4efb\uff1b\u56e0\u6b64\u6240\u884d\u751f\u7684\u4efb\u4f55\u635f\u5931\u6216\u635f\u5bb3\uff0c\u6211\u4eec\u65e0\u6cd5\u4e5f\u4e0d\u627f\u62c5\u4efb\u4f55"
+                        "\u8d23\u4efb\u3002</span></p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Sitka Subheading';\"><br /></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">\u4e3a\u4e86\u80fd\u4f7f\u7528\u672c\u670d\u52a1\uff0c\u60a8\u540c\u610f\u4ee5\u4e0b\u4e8b\u9879\uff1a</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(1) \u7ef4\u6301\u66f4\u65b0\u60a8\u4e2a\u4eba\u7528\u6237\u4fe1\u606f\uff0c\u786e\u4fdd\u5176\u771f\u5b9e\u3001\u6b63\u786e\u3001\u6700\u65b0\u53ca\u5b8c\u6574\u3002</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'S"
+                        "itka Subheading';\">\u82e5\u60a8\u63d0\u4f9b\u4efb\u4f55\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\u7684\u8d44\u6599\uff0c\u5e76\u4e3a\u5e94\u7528\u6240\u786e\u77e5\uff0c\u6216\u8005\u5e94\u7528\u6709\u5408\u7406\u7684\u7406\u7531\u6000\u7591\u524d\u8ff0\u8d44\u6599\u4e3a\u9519\u8bef\u3001\u4e0d\u5b9e\u3001\u8fc7\u65f6\u6216\u4e0d\u5b8c\u6574\uff0c\u6211\u53f8\u6709\u6743\u6682\u505c\u6216\u7ec8\u6b62\u60a8\u7684\u5e10\u53f7\uff0c\u5e76\u62d2\u7edd\u60a8\u4e8e\u73b0\u5728\u548c\u672a\u6765\u4f7f\u7528\u5e94\u7528\u5168\u90e8\u6216\u90e8\u5206\u7684\u670d\u52a1\u3002</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(2) \u5e94\u7528\u4e0d\u5bf9\u7528\u6237\u6240\u53d1\u5e03\u4fe1\u606f\u7684\u5220\u9664\u6216\u50a8\u5b58\u5931\u8d25\u8d1f\u8d23\u3002</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px;"
+                        " -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">\u5e94\u7528\u5e76\u4e0d\u627f\u8bfa\u5bf9\u7528\u6237\u7684\u5b58\u50a8\u4fe1\u606f\u8fdb\u884c\u65e0\u9650\u671f\u4fdd\u7559\u3002\u9664\u975e\u672c\u534f\u8bae\u4e2d\u53e6\u6709\u89c4\u5b9a\uff0c\u5426\u5219\u5e94\u7528\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e00\u5b9a\u4f1a\u6ee1\u8db3\u7528\u6237\u7684\u4f7f\u7528\u8981\u6c42\uff0c\u4e5f\u4e0d\u4fdd\u8bc1\u670d\u52a1\u4e0d\u4f1a\u53d7\u4e2d\u65ad\uff0c\u5bf9\u670d\u52a1\u7684\u53ca\u65f6\u6027\u3001\u5b89\u5168\u6027\u3001\u51c6\u786e\u6027\u4e5f\u4e0d\u4f5c\u62c5\u4fdd\u3002\u5e94\u7528\u6709\u5224\u5b9a\u7528\u6237\u7684\u884c\u4e3a\u662f\u5426\u7b26\u5408\u5e94\u7528\u670d\u52a1\u6761\u6b3e\u7684\u8981\u6c42\u548c\u7cbe\u795e\u7684\u4fdd\u7559\u6743\u5229\uff0c\u5982\u679c\u7528\u6237\u8fdd\u80cc\u4e86\u670d\u52a1\u6761\u6b3e\u7684\u89c4\u5b9a\uff0c\u5e94\u7528\u6709\u4e2d\u65ad\u5bf9\u5176\u63d0\u4f9b\u7f51\u7edc\u670d\u52a1\u7684\u6743\u5229\u3002</span></p>\n"
+"<p style"
+                        "=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(3) \u7528\u6237\u5bf9\u7f51\u7edc\u670d\u52a1\u7684\u4f7f\u7528\u627f\u62c5\u98ce\u9669\u3002\u5e94\u7528\u5bf9\u6b64\u4e0d\u4f5c\u4efb\u4f55\u7c7b\u578b\u7684\u62c5\u4fdd\uff0c\u4e0d\u8bba\u662f\u660e\u786e\u7684\u6216\u9690\u542b\u7684\uff0c\u4f46\u662f\u4e0d\u5bf9\u5546\u4e1a\u6027\u7684\u9690\u542b\u62c5\u4fdd\u3001\u7279\u5b9a\u76ee\u7684\u548c\u4e0d\u8fdd\u53cd\u89c4\u5b9a\u7684\u9002\u5f53\u62c5\u4fdd\u4f5c\u9650\u5236</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Sitka Subheading';\">(4) \u7528\u6237\u5355\u72ec\u627f\u62c5\u53d1\u5e03\u5185\u5bb9\u7684\u8d23\u4efb\u3002\u7528\u6237\u5bf9\u670d\u52a1\u7684\u4f7f\u7528\u662f\u6839\u636e\u6240\u6709\u9002\u7528\u4e8e\u5e94\u7528\u7684\u56fd\u5bb6\u6cd5\u5f8b\u3001\u5730\u65b9"
+                        "\u6cd5\u5f8b\u548c\u56fd\u9645\u6cd5\u5f8b\u6807\u51c6\u7684\u3002</span></p></body></html>", None))
+        self.ConfirmProtocolCheckBox.setText(QCoreApplication.translate("Dialog", u"\u540c\u610f\u670d\u52a1\u534f\u8bae", None))
+        self.ConfirmProtocolButton.setText(QCoreApplication.translate("Dialog", u"\u786e\u8ba4", None))
+        self.CancelProtocolButton.setText(QCoreApplication.translate("Dialog", u"\u53d6\u6d88", None))
     # retranslateUi

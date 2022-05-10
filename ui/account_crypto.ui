@@ -28,7 +28,7 @@
       </property>
       <widget class="QWidget" name="cryptoTab">
        <attribute name="title">
-        <string>账户加密</string>
+        <string>加密账户</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_3">
         <item>
@@ -60,7 +60,7 @@
               <item>
                <widget class="QLabel" name="label">
                 <property name="text">
-                 <string>选择公钥文件：</string>
+                 <string>选择私钥文件：</string>
                 </property>
                </widget>
               </item>
@@ -1115,32 +1115,66 @@ p, li { white-space: pre-wrap; }
                </layout>
               </item>
               <item>
-               <widget class="QTextBrowser" name="queryTabShowResult">
+               <widget class="QTableWidget" name="queryTabTableWidget">
                 <property name="font">
                  <font>
-                  <family>Calibri</family>
+                  <family>宋体</family>
                   <pointsize>12</pointsize>
                  </font>
                 </property>
-                <property name="lineWrapMode">
-                 <enum>QTextEdit::NoWrap</enum>
+                <property name="autoScrollMargin">
+                 <number>16</number>
                 </property>
-                <property name="html">
-                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Calibri','Sitka Subheading'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="overwriteMode">
+                <attribute name="horizontalHeaderCascadingSectionResizes">
                  <bool>false</bool>
-                </property>
-                <property name="openExternalLinks">
-                 <bool>false</bool>
-                </property>
-                <property name="openLinks">
-                 <bool>false</bool>
-                </property>
+                </attribute>
+                <attribute name="horizontalHeaderMinimumSectionSize">
+                 <number>100</number>
+                </attribute>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>200</number>
+                </attribute>
+                <attribute name="verticalHeaderMinimumSectionSize">
+                 <number>30</number>
+                </attribute>
+                <attribute name="verticalHeaderDefaultSectionSize">
+                 <number>35</number>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>银行名称</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>银行账户</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>账户名称</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>登录密码</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>U盾密码</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>客户号</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>操作员号</string>
+                 </property>
+                </column>
                </widget>
               </item>
               <item>
