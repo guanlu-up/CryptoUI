@@ -39,7 +39,7 @@ class AccountAction(object):
             account[modify_key] = value
             break
         with open(self.jsonpath, "w", encoding="utf-8") as fileIO:
-            json.dump(accounts, fileIO)
+            json.dump(accounts, fileIO, ensure_ascii=False)
 
     def query_account_all(self):
         """查询所有账户信息"""
@@ -90,7 +90,7 @@ class AccountAction(object):
         account_filtered.extend(encrypted)
         # 重新写入到JSON文件
         with open(self.jsonpath, "w", encoding="utf-8") as fileIO:
-            json.dump(account_filtered, fileIO)
+            json.dump(account_filtered, fileIO, ensure_ascii=False)
 
     def remove_account(self, account_no: str):
         """根据账号移除JSON文件中的账户"""
@@ -101,7 +101,7 @@ class AccountAction(object):
                 break
         # 重新写入到JSON文件
         with open(self.jsonpath, "w", encoding="utf-8") as fileIO:
-            json.dump(accounts, fileIO)
+            json.dump(accounts, fileIO, ensure_ascii=False)
 
     def verification_account(self, account_no: str, login_pwd: str, key_pwd: str):
         """验证账户的登录密码和U盾密码是否和JSON文件里一致"""
@@ -119,7 +119,7 @@ class AccountAction(object):
         """将所有账户信息加密后输出到JSON文件"""
         encrypted = self._encryption(accounts)
         with open(self.jsonpath, "w", encoding="utf-8") as fileIO:
-            json.dump(encrypted, fileIO)
+            json.dump(encrypted, fileIO, ensure_ascii=False)
 
     def _encryption(self, accounts):
         for account in accounts:
